@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Loading from './Loading.vue'
 const LoadingConstructor = Vue.extend(Loading);
 const ins = new LoadingConstructor({el: document.createElement('div')})

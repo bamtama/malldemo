@@ -8,7 +8,7 @@
     <div class="view" :style="'margin-top: '+ top + 'px'" v-show="visible">
       <div class="title">
         <label v-text="title"></label>
-        <i class="gg-icon-close" @click="close()"></i>
+        <i class="iconfont icon-close" @click="close()"></i>
       </div>
       <div class="content" v-html="content"></div>
       <div class="btns-footer">

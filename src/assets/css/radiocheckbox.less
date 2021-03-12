@@ -1,0 +1,21 @@
+
+// 单选框 多选框通用样式
+.Radio, .CheckBox{
+  display: inline-block;
+  position: relative;
+  margin-right: 0.2rem;
+  cursor: pointer;
+  font-size: 0.3rem;
+  >input{display: none}
+  >i{
+    border-radius: 50%;
+    color: #fff;
+    background: #fff;
+    border: 1px solid @mainColor;
+    margin-right: 0.1rem;
+  }
+  >input:checked ~i{
+    background: @mainColor;
+  }
+}
+.CheckBox >i{border-radius: 2px;}

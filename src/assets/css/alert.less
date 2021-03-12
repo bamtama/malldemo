@@ -1,0 +1,127 @@
+.Tip, .Alert, .Dialog, .Loading{
+  position: fixed;
+  left:0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color:@fontColor;
+  pointer-events: none;
+  font-size: 0.35rem;
+  >.mark{
+    position: absolute;
+    left:0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .1;
+    pointer-events: auto;
+  }
+  >.view{
+    width: 95%;
+    border-radius: 6px;
+    background: #fff;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: left;
+    margin-top: 15vh;
+    pointer-events: auto;
+    overflow-y: auto;
+    max-height: 100%;
+    >.title{
+      padding: 0.3rem;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      text-align: center;
+      font-weight: 700;
+      >label{
+        width: 100%;
+        font-size: 0.4rem;
+      }
+      >i{
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 0.6rem;
+        cursor: pointer;
+        padding: 0.3rem;
+      }
+    }
+    >.content{
+      padding: 0.3rem;
+      min-height: 1rem;
+      >.infoTip{margin: 0;}
+    }
+    .btns-footer{
+      padding: 0.3rem 0.3rem;
+      white-space: nowrap;
+      display: flex;
+      justify-content: center;
+      >button{
+        width: 50%;
+        padding: 0.35rem 0.3rem;
+      }
+    }
+    .dialog-footer{
+      text-align: center;
+      >div{
+        margin: 0.4rem 0;
+      }
+      button{
+        width: 80%;
+        padding: 0.3rem 0.6rem;
+      }
+    }
+  }
+}
+.Dialog{
+  z-index: 100;
+  >.mark{
+    opacity: .5;
+  }
+  >.view.bottom-slide{
+    width: 100%;
+    margin-top: 0;
+    bottom: 0;
+    position: absolute;
+    margin-left: -50%;
+  }
+}
+.Alert{
+  z-index: 101;
+  >.view{
+    >.content{
+      text-align: center;
+      padding: 0.3rem;
+    }
+  }
+}
+.Loading, .Tip{
+  z-index: 102;
+  >.view {
+    width: auto;
+    >.title {
+      padding: 0.4rem;
+      >*{
+        vertical-align: middle;
+      }
+      > b {
+        font-size: 0.5rem;
+        margin-right: 0.4rem;
+        display: inline-block;
+        animation: rotate 3s linear infinite;
+      }
+      > i {
+        top: 0.5rem;
+        right: 0.3rem;
+      }
+    }
+  }
+}
+@keyframes rotate {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}

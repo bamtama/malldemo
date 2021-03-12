@@ -1,0 +1,7 @@
+.Alert > .view .btns-footer > button,
+.Dialog > .view .btns-footer > button,
+.Loading > .view .btns-footer > button {
+  background: linear-gradient(45deg, #f0d481, #ebd67f);
+  border: none;
+  border-radius: 0.1067rem;
+}

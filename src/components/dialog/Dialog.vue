@@ -8,7 +8,7 @@
       <div class="view" :style="width ? 'width:'+width : ''" v-show="thisVisible" :class="transition">
         <div class="title">
           <label v-text="title"></label>
-          <i class="gg-icon-close" @click="close()" v-show="canClose"></i>
+          <i class="iconfont icon-close" @click="close()" v-show="canClose"></i>
         </div>
         <div class="content">
           <slot></slot>

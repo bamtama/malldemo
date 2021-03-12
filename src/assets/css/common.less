@@ -1,1 +1,72 @@
 @import '~@/assets/css/base';
+
+.m-opts{
+  text-align: center;
+  font-size: 0.3467rem;
+  .btn{
+    display: inline-block;
+    height: 0.96rem;
+    min-width: 1.6rem;
+    border-radius: 0.48rem;
+    background: @subGradient;
+    line-height: 0.96rem;
+    padding: 0 1em;
+    &.btn-plain{
+      background: none;
+    }
+  }
+}
+.m-form-list{
+  width: 100%;
+  background: transparent;
+  padding: 0.16rem 0;
+  >li{
+    background: #fff;
+    height: 1.1733rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.32rem;
+    border-bottom: 2px solid fadeout(@borderColor, 80%);
+    >span{
+      flex: 1 1 auto;
+      text-align: left;
+      padding: 0 0.5em;
+    }
+    >.iconfont{
+      flex: 0 0 auto;
+    }
+  }
+}
+.m-mall{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 25%);
+  padding: 0.16rem 0;
+  .item{
+    text-align: center;
+    position: relative;
+    .preview{
+      margin: 0.16rem auto;
+    }
+    .name{
+      font-size: 0.32rem;
+      height: 0.36rem;
+    }
+    .opts{
+      background: fadeout(#000, 90%);
+      >.btn{
+        display: inline-block;
+        width: 1.1733rem;
+        height: 1.1733rem;
+        border-radius: 0.1067rem;
+        text-align: center;
+        line-height: 1.1733rem;
+      }
+    }
+    &:hover{
+      .opts{
+        display: block;
+      }
+    }
+  }
+}

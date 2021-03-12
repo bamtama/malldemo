@@ -7,9 +7,9 @@
     <transition name="slide-fade">
     <div class="view" :style="'margin-top: '+ top + 'px'" v-show="visible">
       <div class="title">
-        <b class="gg-icon-loading"></b>
+        <b class="iconfont icon-loading"></b>
         <label v-text="title"></label>
-        <i class="gg-icon-close" @click="close()" v-show="!model"></i>
+        <i class="iconfont icon-close" @click="close()" v-show="!model"></i>
       </div>
     </div>
     </transition>
@@ -33,7 +33,7 @@
     },
     methods: {
       show (_title) {
-        this.title = _title || '加载中...'
+        this.title = _title || 'loading...'
         document.body.appendChild(this.$el)
         this.visible = true
         this.$nextTick(() => {

@@ -9,7 +9,7 @@
     <div class="Sinput" v-else>
       <i class="txt" v-text="placeholder"></i>
     </div>
-    <i class="sign gg-icon-arrow-down"></i>
+    <i class="sign iconfont icon-arrow-down"></i>
     <div ref="popover" class="popover" v-show="visible">
       <a class="Option" v-for="(item, i) in data" :key="i" @click="changeItem(item)" :class="{selected: value == c_value(item)}">
         <img class="icon" v-if="c_icon(item)" :src="c_icon(item)"/>

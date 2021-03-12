@@ -1,5 +1,5 @@
 <template>
-  <div class="m-slider">
+  <div class="m-slider" ref="mslider">
     <template v-if="showArrows">
       <i class="iconfont icon-arrow-left" @click="actionPrevOrNext(-1)"></i>
       <i class="iconfont icon-arrow-right" @click="actionPrevOrNext(1)"></i>
@@ -15,8 +15,6 @@
       </template>
     </div>
     <div class="inner"
-      @mousedown="actionMoveStart($event)"
-      @mouseup="actionMoveEnd($event)"
       @touchstart="actionMoveStart($event)"
       @touchend="actionMoveEnd($event)">
       <template v-for="(item, index) in mSlots">
@@ -33,7 +31,7 @@
 <script>
 /*
   slots: 插槽内容对象数组，必须有key或者自定义key [{key: ''}]
-  duration: 动画运行时间
+  duration: 动画切换时间
   auto: 是否自动播放
   touchable: 是否拖动切换
 */
@@ -45,11 +43,12 @@ export default {
     slots: {type: Array},
     slotKeyName: {type: String, default: 'key'},
     indicator: {type: Array, default: () => {return null}},
-    duration: {type: Number},
+    duration: {type: Number, default: 2000},
     auto: {type: Boolean, default: true},
     touchable: {type: Boolean, defualt: true},
     showIndicator: {type: Boolean, default: true},
-    showArrows: {type: Boolean, default: true}
+    showArrows: {type: Boolean, default: true},
+    activeIndex: {type: Number, default: 0}
   },
   data () {
     return {
@@ -57,7 +56,6 @@ export default {
       handler: null,
       curIndex: 0,
       maxLen: 0,
-      mDuration: 300,
       curSlideName: 'slide',
       startX: 0,
       endX: 0,
@@ -69,9 +67,16 @@ export default {
       handler (nv) {
         this.mSlots = nv || []
         this.init()
+        let _this = this
+        setTimeout(function(){
+          _this.resetHeight()
+        }, 66)
       },
       deep: true,
       immediate: true
+    },
+    activeIndex (nv) {
+      this.actionDirect(nv)
     }
   },
   mounted () {
@@ -85,11 +90,8 @@ export default {
           this.mIndicator.push(`ind_${i}`)
         }
       }
+      this.curIndex = this.activeIndex
       this.auto && this.actionAutoPlay()
-      this.$nextTick(() => {
-        console.log(document.querySelector('.inner .item').clientHeight)
-        console.log(document.querySelector('.inner .item').clientWidth)
-      })
     },
     actionMoveStart (event) {
       this.startX = event.touches && event.touches[0] && event.touches[0].clientX
@@ -97,7 +99,11 @@ export default {
     actionMoveEnd (event) {
       this.endX = event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientX
       let offset = this.startX - this.endX
-      this.actionPrevOrNext(offset < -10 ? 1 : (offset > 10 ? -1 : '' ))
+      if (offset < -50) {
+        this.actionPrevOrNext(1)
+      } else if (offset > 50) {
+        this.actionPrevOrNext(-1)
+      }
     },
     actionPrevOrNext (type) {
       this.clearAutoPlay()
@@ -110,7 +116,7 @@ export default {
     },
     actionAutoPlay () {
       this.clearAutoPlay()
-      this.handler = setInterval(this._sliding, 1000)
+      this.handler = setInterval(this._sliding, 2000)
     },
     clearAutoPlay () {
       if (this.auto && this.handler) {
@@ -130,13 +136,22 @@ export default {
           this.curSlideName = 'slide-1'
           break
       }
+      this.resetHeight()
       this.beginAuto()
       this.$emit('change', this.curIndex)
     },
     beginAuto () {
-      this.auto && setTimeout(this.actionAutoPlay, this.mDuration * 2)
+      this.auto && setTimeout(this.actionAutoPlay, this.duration * 2)
+    },
+    resetHeight () {
+      if (this.$refs.mslider) {
+        this.$nextTick(() => {
+          let curHeight = this.$refs.mslider.querySelectorAll('.inner .item')[this.curIndex].getBoundingClientRect().height
+          this.$refs.mslider.style.height = Math.floor(curHeight) + 'px'
+        })
+      }
     }
-  },
+  }
 }
 </script>
 
@@ -145,7 +160,7 @@ export default {
   display: flex;
   position: relative;
   width: 100%;
-  height: 233px;
+  height: 66px;
   // height: 0;
   // padding: 56.25% 0 0 0;
   overflow: hidden;
@@ -198,11 +213,7 @@ export default {
       left: 0;
       top: 0;
       width: 100%;
-      height: 100%;
-      /deep/ img {
-        height: 100%;
-        width: 100%;
-      }
+      height: auto;
     }
   }
   [class*="-enter-active"],

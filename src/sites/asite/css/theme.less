@@ -5,5 +5,16 @@
 @mainColor2: #df5b5e;
 @subColor: #f0d481;
 @subColor2: #ebd67f;
+@borderColor: #5c5b59;
 @mainGradient: linear-gradient(45deg, @mainColor, @mainColor2);
 @subGradient: linear-gradient(45deg, @subColor, @subColor2);
+@borderRadius: 0.1067rem;
+@bodybg: fadeout(#000,  90%);
+
+.Alert > .view .btns-footer > button,
+.Dialog > .view .btns-footer > button,
+.Loading > .view .btns-footer > button{
+  background: @subGradient;
+  border: none;
+  border-radius: @borderRadius;
+}

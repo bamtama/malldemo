@@ -1,8 +1,8 @@
 <template>
   <div class="m-main">
-    <Slider :slots="imgs" width="100%" height="56%">
+    <Slider :slots="imgs">
       <template v-for="(item, i) in imgs" v-slot:[item.key]>
-        <img :src="getImg(item.key)" :key="`slider_img_${i}`" />
+        <img class="slider_img" :src="getImg(item.key)" :key="`slider_img_${i}`" />
       </template>
     </Slider>
     <div class="enters_wrap">
@@ -11,7 +11,7 @@
           <i class="iconfont" :class="`icon-${item.icon}`"></i>
         </li>
       </ul>
-      <Slider :slots="categories" :showIndicator="false" :showArrows="false" :auto="false" @change="pageChange">
+      <Slider :slots="categories" :showIndicator="false" :showArrows="false" :auto="false" @change="pageChange" :activeIndex="curTab">
         <template v-for="(item, i) in categories" v-slot:[item.key]>
           <div class="cate_page" :key="`slider_page_${i}`">
             <router-link to="/" v-for="val, i in item.list" :key="`enter_${i}`">
@@ -21,30 +21,22 @@
         </template>
       </Slider>
     </div>
-    <div class="btns_wrap">
-      <router-link to="/">
-        品类
-      </router-link>
-      <router-link to="/">
-        品类
-      </router-link>
-      <router-link to="/">
-        品类
-      </router-link>
-      <router-link to="/">
-        品类
-      </router-link>
-    </div>
-    <div class="list_wrap" style="height:10000px">
-      <div>
+    <div class="list_wrap">
+      <h5>
         <span>推荐</span>
-        <i></i>
-      </div>
+        <router-link to="/">
+          查看更多 <i class="iconfont icon-arrow-right"></i>
+        </router-link>
+      </h5>
+      <ul class="cont">
+        <li v-for="i in 10" :key="`list_${i}`">内容00{{i}}</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import tools from '@/utils/tools'
 export default {
   name: 'mainPage',
   components: {},
@@ -72,7 +64,7 @@ export default {
           title: `品类 ${i}`,
           icon: 'category',
           imguri: `banner${i}.jpg`,
-          list: new Array(Math.ceil(Math.random() * 20)).fill(0)
+          list: new Array(tools.randomInt(7, 16)).fill(0)
         })
       }
       // 源数据
@@ -93,8 +85,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.slider_img{
+  float: left;
+  width: 100%;
+  height: 100%;
+}
 .enters_wrap{
-  background: fadeout(@mainColor2, 50%);
+  background: fadeout(@mainColor, 50%);
 }
 .cate_tabs{
   display: flex;
@@ -118,7 +115,27 @@ export default {
     height: 2.6667rem;
     font-size: 1.28rem;
     color: #fff;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.list_wrap{
+  background: fadeout(@mainColor, 80%);
+  font-size: 0.3467rem;
+  padding-bottom: 0.48rem;
+  >h5{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.24rem;
+  }
+  >.cont{
+    display: flex;
+    flex-wrap: wrap;
+    >li{
+      padding: 0.24rem;
+      width: 50%;
+    }
   }
 }
 </style>
